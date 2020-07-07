@@ -1,0 +1,14 @@
+node_modules/
+.idea/
+.nyc_output/
+coverage/
+dist/
+build/
+busanalyzer/data.json
+.vscode/
+
+.DS_Store
+*.zip
+*.bak
+graph.svg
+.DS_Store
