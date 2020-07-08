@@ -28,3 +28,9 @@ export function writeFile(fileName: string, data: string | BufferSource) {
     }
   })
 }
+
+export function modifyName(oldPath: string, newPath: string) {
+  fs.rename(oldPath,newPath,(err: NodeJS.ErrnoException) => {
+      console.log(err)
+  })
+}

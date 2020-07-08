@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-import { Buffer } from 'buffer'
 
 /**
  *  Created by pw on 2020-07-08 00:32.
  */
+import { Buffer } from 'buffer'
 const pacakgeJson = require('../package.json')
-import { createFileDir, copyDir, copyFile, writeFile } from './fileUtil'
+
+const path = require('path')
+import { createFileDir, copyDir, writeFile,copyFile } from './fileUtil'
 const argv = require('yargs').alias('n', 'name').version('v', pacakgeJson.version).argv
 
 const projectName = argv.name
@@ -15,17 +17,23 @@ if (projectName) {
   createFileDir(projectName)
 
   // 2、拷贝模板文件
-  copyDir('./templates/', `${projectName}/`)
-  // const copyFiles = ['.babelrc', '.gitignore', '.prettierrc', 'index.hbs', 'tsconfig.json', 'webpack.config.js']
-  //
-  // copyFiles.forEach((file) => {
-  //   copyFile(`./${file}`, `${projectName}/${file}`)
-  // })
 
-  pacakgeJson.name = projectName
-  const data = Buffer.from(JSON.stringify(pacakgeJson))
+  const path_path = path.resolve(process.cwd(), projectName)
+  const templateDir = path.resolve(__dirname, '../templates');
+  copyDir(`${templateDir}/src`, path_path)
 
-  writeFile(`${projectName}/package.json`, data)
+  const copyFiles = ['.babelrc', '.prettierrc', 'index.hbs', 'tsconfig.json', 'webpack.config.js']
+  copyFiles.forEach((file) => {
+    const sourcePath = `${templateDir}/${file}`
+    const targetPath = `${path_path}/${file}`
+    copyFile(sourcePath, targetPath)
+  })
+
+  const projectPacagejosn = require(`${templateDir}/package.json`)
+  projectPacagejosn.name = projectName
+  const data = Buffer.from(JSON.stringify(projectPacagejosn))
+
+  writeFile(`${path_path}/package.json`, data)
 
   console.log(`创建${projectName}成功`)
 }
