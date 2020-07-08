@@ -1,20 +1,23 @@
 {
-  "name": "create-demo-app",
-  "version": "1.0.0",
-  "description": "",
+  "name": "create-app-demo",
+  "version": "1.0.4",
+  "description": "create-app-demo",
   "main": "lib/index.js",
   "bin": {
-    "create-demo-app": "./index.js"
+    "create-app-demo": "./index.js"
   },
   "scripts": {
-    "build": "rm -rf ./lib && tsc",
-    "publish": "npm publish ."
+    "build": "rm -rf ./lib && tsc"
   },
   "files": [
     "lib/",
     "template/"
   ],
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:PWDream/create-demo-project.git"
+  },
+  "keywords": ["crate","node","create-demo","ts","react"],
   "author": "",
   "license": "ISC",
   "devDependencies": {
